@@ -16,7 +16,8 @@ function TextLogin() {
     this.notifyemitter = undefined;
     this.charm = charm();
     this.done = function() {
-        this.charm.destroy();
+        if (this.charm.destroy) 
+            this.charm.destroy();
         process.stdin.pause()
         var obj = {};   
         this.fields.forEach(function(hash) {
@@ -29,6 +30,7 @@ function TextLogin() {
             this.notifyemitter.emit('done',obj);
         }
     };
+    process.stdin.on('keypress', lib.key.bind(this));
 };
 
 TextLogin.prototype.title = function(title) {
@@ -59,6 +61,11 @@ TextLogin.prototype.start = function() {
         require('tty').setRawMode(true)
     this.charm.pipe(process.stdout);
     this.charm.erase('screen');
+    this.fields.forEach(function(obj) {
+        obj.value = "";
+    });
+    this.active = 0;
+    this.field = "";
     if (this.props.title !== undefined) {
         this.charm.position(1,1);
         this.charm.write(this.props.title);
@@ -67,7 +74,6 @@ TextLogin.prototype.start = function() {
         this.charm.position(1,2);
         this.charm.write(this.fields[this.active].key + ": ");
     }
-    process.stdin.on('keypress', lib.key.bind(this));
     process.stdin.resume();
     return this;
 };
