@@ -15,7 +15,9 @@ function TextLogin() {
     this.cb = undefined;
     this.charm = charm();
     this.done = function() {
+        this.charm.destroy();
         this.cb(this.fields);
+        
     };
 };
 
@@ -53,8 +55,4 @@ TextLogin.prototype.start = function() {
     process.stdin.on('keypress', lib.key.bind(this));
     process.stdin.resume();
     return this;
-};
-
-TextLogin.prototype.end = function() {
-    this.done();    
 };

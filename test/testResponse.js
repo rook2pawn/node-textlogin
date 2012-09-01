@@ -11,5 +11,5 @@ test('testResponse', function(t) {
         t.deepEquals({key:'password',value:'beep-boop',display:'hidden'}, resp[1]);
         t.end();
     })
-    .end();
+    .done();
 });
