@@ -1,0 +1,17 @@
+{
+  "name": "node-textlogin",
+  "version": "0.0.1",
+  "description": "create a text login with style!",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rook2pawn/node-textlogin.git"
+  },
+  "keywords": [
+    "login",
+    "text",
+    "ansi"
+  ],
+  "author": "David Wee <rook2pawn@gmail.com> (http://rook2pawn.com)",
+  "license": "BSD"
+}

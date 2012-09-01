@@ -54,3 +54,7 @@ TextLogin.prototype.start = function() {
     process.stdin.resume();
     return this;
 };
+
+TextLogin.prototype.end = function() {
+    this.done();    
+};
