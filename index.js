@@ -16,7 +16,8 @@ function TextLogin() {
     this.charm = charm();
     this.done = function() {
         this.charm.destroy();
-        this.cb(this.fields);
+        if (this.cb !== undefined) 
+            this.cb(this.fields);
         
     };
 };
