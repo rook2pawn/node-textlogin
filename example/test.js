@@ -1,4 +1,4 @@
-var textlogin = require('./index')();
+var textlogin = require('../index')();
 textlogin
     .title("Beep Boop Industries")
     .add({key:'username',value:''})
