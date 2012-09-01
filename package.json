@@ -1,5 +1,5 @@
 {
-  "name": "node-textlogin",
+  "name": "textlogin",
   "version": "0.0.1",
   "description": "create a text login with style!",
   "main": "index.js",
