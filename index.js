@@ -15,21 +15,6 @@ function TextLogin() {
     this.cb = undefined;
     this.notifyemitter = undefined;
     this.charm = charm();
-    this.done = function() {
-        if (this.charm.destroy) 
-            this.charm.destroy();
-        process.stdin.pause()
-        var obj = {};   
-        this.fields.forEach(function(hash) {
-            obj[hash.key] = hash.value;
-        });
-        if (this.cb !== undefined) {
-            this.cb(obj);
-        }
-        if (this.notifyemitter !== undefined) {
-            this.notifyemitter.emit('done',obj);
-        }
-    };
     process.stdin.on('keypress', lib.key.bind(this));
 };
 
@@ -52,12 +37,33 @@ TextLogin.prototype.notify = function(ee) {
     this.notifyemitter = ee;
     return this;
 };
+TextLogin.prototype.done = function() {
+    if (this.charm.destroy) 
+        this.charm.destroy();
+    process.stdin.pause()
+    var obj = {};   
+    this.fields.forEach(function(hash) {
+        obj[hash.key] = hash.value;
+    });
+    if (this.cb !== undefined) {
+        this.cb(obj);
+    }
+    if (this.notifyemitter !== undefined) {
+        this.notifyemitter.emit('done',obj);
+    }
+};
 
 TextLogin.prototype.start = function() {
+/*
+    if (!process.stdout.isTTY) {
+        console.log("not in a tty!");
+        process.exit();
+    }
+*/
     keypress(process.stdin);
-    if (process.stdin.setRawMode)
+    if (process.stdin.setRawMode) 
         process.stdin.setRawMode(true)
-    else
+    else 
         require('tty').setRawMode(true)
     this.charm.pipe(process.stdout);
     this.charm.erase('screen');

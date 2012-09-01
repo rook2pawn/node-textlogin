@@ -1,6 +1,9 @@
 var textlogin = require('../index')();
 var test = require('tap').test;
 
+// this test does not invoke .start
+// because rawMode is not available in non-tty
+// instead we call done
 test('testResponse', function(t) {
     textlogin
     .title("Beep Boop Industries")
