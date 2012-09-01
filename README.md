@@ -30,10 +30,16 @@ Use hidden_ascii if you want a simple '*' for your display value.
 .success(<cb>)
 --------------
 
-Callback will be called after all keys have their associated values filled in, being passed the response object, i.e.
+Callback will be called after all keys have their associated values filled in.
+The callback will be passed a response object like so:
 
-    [{key:'username', value:'blitzcrank'},
-     {key:'password', value:'beepboop', display:'hidden'}]
+    {username:'blitzcrank',
+     password:'beep-boop'}
+
+.notify(<event>) 
+----------------
+
+Optionally, you can pass an event emitter to .notify. It will emit 'done' when it is done, and pass the same response object as .success. You can use either the success callback or the notify event, or both, or none.
 
 .start 
 ------

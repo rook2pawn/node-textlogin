@@ -13,12 +13,21 @@ function TextLogin() {
     this.fields = []; 
     this.props = {};
     this.cb = undefined;
+    this.notifyemitter = undefined;
     this.charm = charm();
     this.done = function() {
         this.charm.destroy();
-        if (this.cb !== undefined) 
-            this.cb(this.fields);
-        
+        process.stdin.pause()
+        var obj = {};   
+        this.fields.forEach(function(hash) {
+            obj[hash.key] = hash.value;
+        });
+        if (this.cb !== undefined) {
+            this.cb(obj);
+        }
+        if (this.notifyemitter !== undefined) {
+            this.notifyemitter.emit('done',obj);
+        }
     };
 };
 
@@ -34,6 +43,11 @@ TextLogin.prototype.add = function(params) {
 
 TextLogin.prototype.success = function(cb) {
     this.cb = cb; 
+    return this;
+};
+
+TextLogin.prototype.notify = function(ee) {
+    this.notifyemitter = ee;
     return this;
 };
 

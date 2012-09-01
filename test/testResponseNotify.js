@@ -1,15 +1,18 @@
 var textlogin = require('../index')();
 var test = require('tap').test;
+var EE = require('events').EventEmitter;
 
 test('testResponse', function(t) {
+    var notify = new EE;
+    notify.on('done', function(resp) {
+        t.deepEquals({username:'blitzcrank',password:'beep-boop'}, resp);
+        t.end();
+    });
+
     textlogin
     .title("Beep Boop Industries")
     .add({key:'username',value:'blitzcrank'})
     .add({key:'password',value:'beep-boop',display:'hidden'})
-    .success(function(resp) {
-        t.deepEquals({key:'username',value:'blitzcrank'}, resp[0]);
-        t.deepEquals({key:'password',value:'beep-boop',display:'hidden'}, resp[1]);
-        t.end();
-    })
+    .notify(notify)
     .done();
 });
