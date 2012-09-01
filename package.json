@@ -12,6 +12,16 @@
     "text",
     "ansi"
   ],
-  "author": "David Wee <rook2pawn@gmail.com> (http://rook2pawn.com)",
+  "devDependencies": {
+    "tap": ""
+  },
+  "scripts": {
+    "test": "tap test/*.js"
+  },
+  "author": {
+    "name": "David Wee",
+    "email": "rook2pawn@gmail.com",
+    "url": "http://rook2pawn.com"
+  },
   "license": "BSD"
 }
