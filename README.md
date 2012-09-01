@@ -3,27 +3,28 @@ node-textlogin
 
 Collect a username, password, and any other fields you want in style!
 
-    var textlogin = require('./index')();
+    var textlogin = require('textlogin')();
     textlogin
         .title("Beep Boop Industries")
         .add({key:'username',value:''})
         .add({key:'password',value:'',display:'hidden'})
         .success(function(response) {
+            // response == {username:<entered username>, password:<entered password>}
         })  
         .start();
 
 Methods
 =======
 
-.title('`<titlename>`')
+.title(`<titlename>`)
 -------------------
 Sets the title name
 
 
-.add({key:'`<key'>`, value: '`<initial value>`', display:'`<hidden|hidden_ascii>`'})
+.add({key:`<key>`, value: `<initial value>`, display:`<hidden|hidden_ascii>`})
 ------------------------------------------------------------------------------
 
-Adds a field named '`<key>`' with initial value '`<initial value>`'.
+Adds a field named `<key>` with initial value `<initial value>`.
 Display field is optional and can be one of the following two: hidden or hidden_ascii.
 Use hidden_ascii if you want a simple '*' for your display value.
 
