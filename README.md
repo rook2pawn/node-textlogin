@@ -35,3 +35,7 @@ Callback will be called after all keys have their associated values filled in, b
     [{key:'username', value:'blitzcrank'},
      {key:'password', value:'beepboop', display:'hidden'}]
 
+.start 
+------
+
+Call start to start collection.
