@@ -1,7 +1,10 @@
 node-textlogin
 ==============
 
-Collect a username, password, and any other fields you want in style!
+Textlogin is a module that allows you to do the following
+
+* Collect a username, password, and any other fields you want in style!
+* Make ansi based menus
 
     var textlogin = require('textlogin')();
     textlogin
@@ -46,3 +49,14 @@ Optionally, you can pass an event emitter to .notify. It will emit 'done' when i
 ------
 
 Call start to start collection.
+
+.done
+-----
+
+Execute any success callbacks (that were assigned with .success)  or emit any notifications (that were assigned with .notfiy). Also erase all values in parameters set with .add. 
+
+.finish()
+---------
+Call this when you are completely finished with the interface.
+
+

@@ -37,11 +37,12 @@ TextLogin.prototype.notify = function(ee) {
     this.notifyemitter = ee;
     return this;
 };
-TextLogin.prototype.done = function() {
-    if (this.charm.destroy) 
-        this.charm.destroy();
-    process.stdin.pause()
+TextLogin.prototype.finish = function() {
     process.stdin.removeAllListeners();
+};
+TextLogin.prototype.done = function() {
+    this.charm.destroy();
+    process.stdin.pause()
     var obj = {};   
     this.fields.forEach(function(hash) {
         obj[hash.key] = hash.value;
