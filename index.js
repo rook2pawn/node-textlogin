@@ -41,6 +41,7 @@ TextLogin.prototype.done = function() {
     if (this.charm.destroy) 
         this.charm.destroy();
     process.stdin.pause()
+    process.stdin.removeAllListeners();
     var obj = {};   
     this.fields.forEach(function(hash) {
         obj[hash.key] = hash.value;
