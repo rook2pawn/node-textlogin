@@ -12,6 +12,10 @@
     "text",
     "ansi"
   ],
+    "dependencies": {
+        "keypress" : "",
+        "charm" : ""
+    },
   "devDependencies": {
     "tap": ""
   },
