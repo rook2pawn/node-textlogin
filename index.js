@@ -2,20 +2,26 @@ var keypress = require('keypress');
 var charm = require('charm');
 var lib = require('./lib/lib');
 
-var exports = module.exports = function(obj) {
-    var textlogin = new TextLogin;
+var exports = module.exports = function(type) {
+    var textlogin = new TextLogin(type);
     return textlogin;
 }; 
 
-function TextLogin() {
+function TextLogin(type) {
+    this.type = type;
     this.field = "";
+    this.selection = "";
     this.active = 0;
     this.fields = []; 
     this.props = {};
     this.cb = undefined;
     this.notifyemitter = undefined;
     this.charm = charm();
-    process.stdin.on('keypress', lib.key.bind(this));
+    if (this.type == 'form') {
+        process.stdin.on('keypress', lib.keyform.bind(this));
+    } else if (this.type == 'menu') {
+        process.stdin.on('keypress', lib.keymenu.bind(this));
+    }
 };
 
 TextLogin.prototype.title = function(title) {
@@ -44,9 +50,13 @@ TextLogin.prototype.done = function() {
     this.charm.destroy();
     process.stdin.pause()
     var obj = {};   
-    this.fields.forEach(function(hash) {
-        obj[hash.key] = hash.value;
-    });
+    if (this.type == 'form') {
+        this.fields.forEach(function(hash) {
+            obj[hash.key] = hash.value;
+        });
+    } else if (this.type == 'menu') {
+        this.selection = '';
+    }
     if (this.cb !== undefined) {
         this.cb(obj);
     }
@@ -69,18 +79,41 @@ TextLogin.prototype.start = function() {
         require('tty').setRawMode(true)
     this.charm.pipe(process.stdout);
     this.charm.erase('screen');
-    this.fields.forEach(function(obj) {
-        obj.value = "";
-    });
-    this.active = 0;
-    this.field = "";
-    if (this.props.title !== undefined) {
-        this.charm.position(1,1);
-        this.charm.write(this.props.title);
-    }
-    if (this.fields.length > 0) {
-        this.charm.position(1,2);
-        this.charm.write(this.fields[this.active].key + ": ");
+    if (this.type == 'form') {
+        this.fields.forEach(function(obj) {
+            obj.value = "";
+        });
+        this.active = 0;
+        this.field = "";
+        if (this.props.title !== undefined) {
+            this.charm.position(1,1);
+            this.charm.write(this.props.title);
+        }
+        if (this.fields.length > 0) {
+            this.charm.position(1,2);
+            this.charm.write(this.fields[this.active].key + ": ");
+        }
+    } else if (this.type == 'menu') {
+        this.selection = "";
+        if (this.props.title !== undefined) {
+            this.charm.position(1,1);
+            this.charm.write(this.props.title);
+            this.charm.position(1,2);
+            this.charm.write('—————————————————');
+        }
+        if (this.fields.length > 0) {
+            for (var i = 0; i < this.fields.length; i++) {
+                this.charm.position(1,3+i);
+                this.charm.write(i + ') ' + this.fields[i].value);
+            }
+/*
+            this.fields.forEach(function(obj,index) {
+                this.charm.position(1,3+index);
+                this.charm.write(index + ') ' + obj.value);
+            });
+*/
+        }
+        this.charm.position(1,5+this.fields.length);
     }
     process.stdin.resume();
     return this;
