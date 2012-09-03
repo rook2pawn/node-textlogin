@@ -6,6 +6,9 @@ Textlogin is a module that allows you to do the following
 * Collect a username, password, and any other fields you want in style!
 * Make ansi based menus
 
+Example
+-------
+
     var textlogin = require('textlogin')();
     textlogin
         .title("Beep Boop Industries")
