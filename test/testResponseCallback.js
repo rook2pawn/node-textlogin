@@ -1,4 +1,4 @@
-var textlogin = require('../index')();
+var textlogin = require('../index')('form');
 var test = require('tap').test;
 
 // this test does not invoke .start
