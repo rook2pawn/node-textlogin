@@ -8,6 +8,8 @@ var exports = module.exports = function(type) {
 }; 
 
 function TextLogin(type) {
+    this.marginLeft = 4;
+    this.marginTop = 2;
     this.type = type;
     this.field = "";
     this.selection = "";
@@ -55,6 +57,7 @@ TextLogin.prototype.done = function() {
             obj[hash.key] = hash.value;
         });
     } else if (this.type == 'menu') {
+        obj.selection = this.selection;
         this.selection = '';
     }
     if (this.cb !== undefined) {
@@ -96,24 +99,21 @@ TextLogin.prototype.start = function() {
     } else if (this.type == 'menu') {
         this.selection = "";
         if (this.props.title !== undefined) {
-            this.charm.position(1,1);
+            this.charm.position(this.marginLeft,this.marginTop);
             this.charm.write(this.props.title);
-            this.charm.position(1,2);
-            this.charm.write('—————————————————');
+            this.charm.position(this.marginLeft,this.marginTop+1);
+            for (var i = 0; i < this.props.title.length; i++) {
+                this.charm.write('—');
+            }
         }
         if (this.fields.length > 0) {
             for (var i = 0; i < this.fields.length; i++) {
-                this.charm.position(1,3+i);
+                this.charm.position(this.marginLeft,3+i + this.marginTop);
                 this.charm.write(i + ') ' + this.fields[i].value);
             }
-/*
-            this.fields.forEach(function(obj,index) {
-                this.charm.position(1,3+index);
-                this.charm.write(index + ') ' + obj.value);
-            });
-*/
         }
-        this.charm.position(1,5+this.fields.length);
+        this.charm.position(this.marginLeft,this.marginTop + 4  +  this.fields.length);
+        this.charm.write("> ");
     }
     process.stdin.resume();
     return this;

@@ -5,6 +5,7 @@ textlogin
     .add({value:'Boop Burger $3.50'})
     .add({value:'French Fries $0.50'})
     .success(function(response) {
-        // response = {value:<item selected>}
+        console.log("response");
+        console.log(response.selection);
     })  
     .start();
