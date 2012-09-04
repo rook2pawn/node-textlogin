@@ -1,7 +1,7 @@
 {
   "name": "textlogin",
-  "version": "0.0.3",
-  "description": "create a text login with style!",
+  "version": "0.0.4",
+  "description": "create stylish text ansi logins and ansi based menus!",
   "main": "index.js",
   "repository": {
     "type": "git",
