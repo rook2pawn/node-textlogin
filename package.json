@@ -1,6 +1,6 @@
 {
   "name": "textlogin",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "create stylish text ansi logins and ansi based menus!",
   "main": "index.js",
   "repository": {

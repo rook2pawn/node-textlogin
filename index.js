@@ -17,13 +17,10 @@ function TextLogin(type) {
     this.fields = []; 
     this.props = {};
     this.cb = undefined;
+    this.retrycb = undefined;
     this.notifyemitter = undefined;
-    this.charm = charm();
-    if (this.type == 'form') {
-        process.stdin.on('keypress', lib.keyform.bind(this));
-    } else if (this.type == 'menu') {
-        process.stdin.on('keypress', lib.keymenu.bind(this));
-    }
+    this.charm = undefined;
+    this.init = false;
 };
 
 TextLogin.prototype.title = function(title) {
@@ -36,6 +33,12 @@ TextLogin.prototype.add = function(params) {
     return this;
 };
 
+TextLogin.prototype.retry = function(cb) {
+    this.retrycb = cb; 
+    return this;
+};
+
+
 TextLogin.prototype.success = function(cb) {
     this.cb = cb; 
     return this;
@@ -46,10 +49,10 @@ TextLogin.prototype.notify = function(ee) {
     return this;
 };
 TextLogin.prototype.finish = function() {
-    process.stdin.removeAllListeners();
+    this.charm.destroy();
+    process.stdin.removeAllListeners('keypress');
 };
 TextLogin.prototype.done = function() {
-    this.charm.destroy();
     process.stdin.pause()
     var obj = {};   
     if (this.type == 'form') {
@@ -75,14 +78,25 @@ TextLogin.prototype.start = function() {
         process.exit();
     }
 */
-    keypress(process.stdin);
-    if (process.stdin.setRawMode) 
-        process.stdin.setRawMode(true)
-    else 
-        require('tty').setRawMode(true)
-    this.charm.pipe(process.stdout);
-    this.charm.erase('screen');
+    if (this.init === false) {
+        process.stdin.removeAllListeners('keypress');
+        keypress(process.stdin);
+        if (this.type == 'form') {
+            process.stdin.on('keypress', lib.keyform.bind(this));
+        } else if (this.type == 'menu') {
+            process.stdin.on('keypress', lib.keymenu.bind(this));
+        }
+        if (this.charm === undefined) 
+            this.charm = charm();
+        if (process.stdin.setRawMode) 
+            process.stdin.setRawMode(true)
+        else 
+            require('tty').setRawMode(true)
+        this.charm.pipe(process.stdout);
+    }
+    process.stdin.resume();
     if (this.type == 'form') {
+        this.charm.erase('screen');
         this.fields.forEach(function(obj) {
             obj.value = "";
         });
@@ -98,6 +112,7 @@ TextLogin.prototype.start = function() {
         }
     } else if (this.type == 'menu') {
         this.selection = "";
+        this.charm.erase('screen');
         if (this.props.title !== undefined) {
             this.charm.position(this.marginLeft,this.marginTop);
             this.charm.write(this.props.title);
@@ -115,6 +130,6 @@ TextLogin.prototype.start = function() {
         this.charm.position(this.marginLeft,this.marginTop + 4  +  this.fields.length);
         this.charm.write("> ");
     }
-    process.stdin.resume();
+    this.init = true;
     return this;
 };
