@@ -29,6 +29,9 @@ TextLogin.prototype.title = function(title) {
 };
 
 TextLogin.prototype.add = function(params) {
+    if (params.value === undefined) {
+        throw new Error("TextLogin.add requires {value:'something'}");
+    }
     this.fields.push(params);
     return this;
 };
@@ -53,14 +56,15 @@ TextLogin.prototype.finish = function() {
     process.stdin.removeAllListeners('keypress');
 };
 TextLogin.prototype.done = function() {
-    process.stdin.pause()
+    process.stdin.pause();
     var obj = {};   
     if (this.type == 'form') {
         this.fields.forEach(function(hash) {
             obj[hash.key] = hash.value;
         });
     } else if (this.type == 'menu') {
-        obj.selection = this.selection;
+        obj.selection = parseInt(this.selection);
+        obj.value = this.fields[parseInt(this.selection)].value;
         this.selection = '';
     }
     if (this.cb !== undefined) {
@@ -125,6 +129,9 @@ TextLogin.prototype.start = function() {
             for (var i = 0; i < this.fields.length; i++) {
                 this.charm.position(this.marginLeft,3+i + this.marginTop);
                 this.charm.write(i + ') ' + this.fields[i].value);
+                if (this.fields[i].desc !== undefined) {
+                    this.charm.write(' - ' + this.fields[i].desc);
+                }
             }
         }
         this.charm.position(this.marginLeft,this.marginTop + 4  +  this.fields.length);
