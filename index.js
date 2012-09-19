@@ -130,8 +130,10 @@ TextLogin.prototype.start = function() {
         } else if (this.type == 'menu') {
             process.stdin.on('keypress', lib.keymenu.bind(this));
         }
-        if (this.charm === undefined) 
+        if (this.charm === undefined) {
             this.charm = charm();
+            this.charm.background('black').foreground(47);
+        }
         if (process.stdin.setRawMode) 
             process.stdin.setRawMode(true)
         else 
