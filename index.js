@@ -52,7 +52,9 @@ TextLogin.prototype.notify = function(ee) {
     return this;
 };
 TextLogin.prototype.finish = function() {
-    this.charm.destroy();
+    if (this.charm !== undefined) {
+        this.charm.destroy();
+    }
     process.stdin.removeAllListeners('keypress');
 };
 TextLogin.prototype.clear = function() {
