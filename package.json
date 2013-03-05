@@ -1,11 +1,11 @@
 {
-  "name": "textlogin",
+  "name": "ansi-form-menus",
   "version": "0.0.7",
   "description": "create stylish text ansi logins and ansi based menus!",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ithkuil/node-textlogin.git"
+    "url": "git://github.com/rook2pawn/node-textlogin.git"
   },
   "keywords": [
     "login",
