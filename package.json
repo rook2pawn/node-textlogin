@@ -1,5 +1,5 @@
 {
-  "name": "ansi-form-menus",
+  "name": "node-textlogin",
   "version": "0.0.7",
   "description": "create stylish text ansi logins and ansi based menus!",
   "main": "index.js",
