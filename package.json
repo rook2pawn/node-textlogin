@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/rook2pawn/node-textlogin.git"
+    "url": "git://github.com/ithkuil/node-textlogin.git"
   },
   "keywords": [
     "login",
