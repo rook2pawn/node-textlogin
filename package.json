@@ -1,6 +1,6 @@
 {
   "name": "node-textlogin",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "create stylish text ansi logins and ansi based menus!",
   "main": "index.js",
   "repository": {
@@ -12,15 +12,16 @@
     "text",
     "ansi"
   ],
-    "dependencies": {
-        "keypress" : "",
-        "charm" : ""
-    },
+  "dependencies": {
+    "charm": "^1.0.0",
+    "keypress": "^0.2.1",
+    "tape": "^4.5.1"
+  },
   "devDependencies": {
-    "tap": ""
+    "tape": ""
   },
   "scripts": {
-    "test": "tap test/*.js"
+    "test": "tape test/*.js"
   },
   "author": {
     "name": "David Wee",

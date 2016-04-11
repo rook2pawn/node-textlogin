@@ -1,6 +1,6 @@
 var keypress = require('keypress');
 var charm = require('charm');
-var lib = require('./lib/lib');
+var lib = require('./lib');
 
 var exports = module.exports = function(type) {
     var textlogin = new TextLogin(type);

@@ -1,5 +1,5 @@
 var textlogin = require('../index')('form');
-var test = require('tap').test;
+var test = require('tape')
 var EE = require('events').EventEmitter;
 
 test('testResponse', function(t) {

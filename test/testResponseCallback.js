@@ -1,5 +1,5 @@
 var textlogin = require('../index')('form');
-var test = require('tap').test;
+var test = require('tape');
 
 // this test does not invoke .start
 // because rawMode is not available in non-tty
