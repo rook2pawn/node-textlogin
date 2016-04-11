@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/rook2pawn/node-textlogin.svg?branch=master)](https://travis-ci.org/rook2pawn/node-textlogin)
+
 node-textlogin
 ==============
 
